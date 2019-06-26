@@ -1,0 +1,248 @@
+*{
+    padding: 0;
+    margin: 0
+}
+body, html {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+.nobd{
+  background-color: #eee;
+}
+.nav{
+    background-color: #365899;
+    height: 50px;
+    display: flex;
+}
+.con{
+    color: white;
+    font-size: 30px;
+    font-family:monospace;
+    letter-spacing: -2px;
+    font-weight: 900;
+    padding-left: 40px;
+    cursor: pointer;
+}
+.lg-text{
+  padding-left: 400px;
+  display: flex;
+  flex-direction: row-reverse;
+}
+.ul-text{
+  display: flex;
+  flex-direction: row-reverse;
+}
+.space-li{
+  padding: 10px 30px 10px 0px;
+}
+.space-li a{
+  color: white;
+  font-weight: bold;
+}
+.con-logo{
+    color: #365899;
+    font-size: 30px;
+    font-family:monospace;
+    letter-spacing: -2px;
+    font-weight: 900;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: -40px;
+}
+
+
+.search{
+  width: 420px;
+  height: 100%;
+}
+.search-id{
+  height: 50%;
+  margin-top: 10px;
+  width: 100%; 
+  margin-left: 20px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+   border-radius: 10px;
+   border: 2px solid white;
+}
+
+
+#card-body-img{
+     -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+   border-radius: 10px;
+   height: 40%;
+   width: 60%;
+   margin-left: 90px;
+}
+.form-signin
+{
+    max-width: 330px;
+    padding-left: 15px;
+    margin: 0 auto;
+}
+.form-signin .form-signin-heading, .form-signin .checkbox
+{
+    margin-bottom: 10px;
+}
+.form-signin .form-control
+{
+    position: relative;
+    font-size: 16px;
+    height: auto;
+    padding: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.form-signin .form-control:focus
+{
+    z-index: 2;
+}
+.form-signin input[type="text"]
+{
+    margin-bottom: -1px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.form-signin input[type="password"]
+{
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.account-wall
+{
+    margin-top: -30px;
+    padding: 40px 15px 20px 0px;
+    background-color: #f7f7f7;
+    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+         -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+   border-radius: 10px;
+   width: 70%;
+   margin-left: 68px;   
+}
+.profile-img
+{
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 30px;
+    display: block;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+.new-account
+{
+    display: block;
+    margin-top: 10px;
+}
+#row-login{
+    margin-top: -30px;
+}
+.card-body{
+    display: flex;
+}
+.proimg{
+    width: 60px;
+    height: 60px;
+    margin-top: -10px;
+    margin-left: 10px;
+}
+.lg-btn{
+  margin-top: 10px;
+}
+
+.leftpane {
+    width: 15%;
+    height: 100%;
+    float: left;
+    background-color: #eee;
+    border-collapse: collapse;
+}
+
+.middlepane {
+    margin-top: 20px;
+    width: 70%;
+    height: 100%;
+    float: left;
+    background-color: white;
+    border-collapse: collapse;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.rightpane {
+  width: 15%;
+  height: 100%;
+  position: relative;
+  float: right;
+  background-color: #eee;
+  border-collapse: collapse;
+}
+.nw-ct{
+    padding-top: 50px;
+}
+.nw-ct a{
+  color: grey;
+}
+.btn{
+  margin-right: -10px;
+}
+.btn-ct{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 400px;
+}
+.btn-ct button{
+  background-color: #365899;
+}
+.btn-ct button:hover {
+  background-color: white;
+  color: #365899;
+}/*
+.card{
+          border: 4px solid white;
+            border-top-left-radius: 9px;
+          border-bottom-left-radius: 9px;
+          background-color:#efe9e9;
+          margin-bottom: 2px;
+          transition: transform .2s;
+          box-shadow: 5px 5px 5px #888888;
+          box-shadow: 0 4px 0px 0 rgba(0, 0, 0, 0.1); 
+        } 
+*/
+.fb-photo{
+  display: flex;
+  margin-bottom: 20px;
+  margin-left: 10px;
+  border: 1px solid black;
+}
+.photo-img{
+  width: 50%;
+}
+.photo-desc{
+  width: 50%;
+}
+.photo-img img{
+  width: 100%;
+}
+.photo-desc img{
+  width: 18%;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+.photo-desc span{
+  padding-top: 15px;
+}
