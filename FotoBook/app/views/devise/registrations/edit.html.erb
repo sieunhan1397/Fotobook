@@ -1,0 +1,177 @@
+<!-- <h2>Edit <%= resource_name.to_s.humanize %></h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+    <%= f.password_field :password, autocomplete: "new-password" %>
+    <% if @minimum_password_length %>
+      <br />
+      <em><%= @minimum_password_length %> characters minimum</em>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+    <%= f.password_field :current_password, autocomplete: "current-password" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Update" %>
+  </div>
+<% end %>
+
+<h3>Cancel my account</h3>
+
+<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+
+<%= link_to "Back", :back %>
+-->
+
+
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+  <a class="navbar-brand" href="#">Fotobook</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <div class="navbar-nav mr-auto nav-div">
+      <input type="text" class="form-control" placeholder="Search"/>
+    </div>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <%= image_tag("#{current_user.avatar}", class: "rounded-circle")%>
+        <%= link_to "#{current_user.lastname} #{current_user.firstname}", edit_user_registration_path,class: "text-white" %>
+      </li>
+      <li class="nav-item mt-1">
+        <%= link_to "Logout", destroy_user_session_path, class: "text-white",method: :delete %>
+      </li>
+    </ul>
+  </div>
+</nav>
+<body class="nobd">
+  <div class="leftpane">
+    <div class="nw-ct text-center">
+      <a href="feeds.html"><b>Feed</b></a>
+      <br>
+      <a href="feeds.html"><b>Discover</b></a>
+    </div>
+  </div>
+  <div class="middlepane">
+    <div class="container-fluid p-2">
+      <div class="row">
+        <div class="col-12">
+          <p><b>Edit User Profile</b></p>
+          <hr>
+        </div>
+      </div>
+      <!-- <form class="pl-5 ml-lg-5"> -->
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+        <div class="form-group row">
+          <div class="col-md-4"></div>
+          <div class="col-md-5">
+            <h4 class="text-primary">Basic Information</h4>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-4 col-form-label d-flex justify-content-end"><b>First name</b></label>
+          <div class="col-md-5">
+            <!-- <input type="text" class="form-control" id="editFirstName" placeholder="First Name"> -->
+            <%= f.text_field :firstname, class: "form-control", placeholder: "First Name", required: true,autofocus: true, maxlength: "25" %>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-4 col-form-label d-flex justify-content-end"><b>Last name</b></label>
+          <div class="col-md-5">
+            <!-- <input type="text" class="form-control" id="editLastName" placeholder="Last Name"> -->
+            <%= f.text_field :lastname, class: "form-control", placeholder: "Last Name", required: true, maxlength: "25" %>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-4 col-form-label d-flex justify-content-end"><b>Email</b></label>
+          <div class="col-md-5">
+            <!-- <input type="Email" class="form-control" id="editEmail" placeholder="Someone@example.com"> -->
+            <%= f.text_field :email, type:"Email",class: "form-control", placeholder: "Someone@example.com", required: true, maxlength: "255" %>
+          </div>
+          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+          <% end %>
+        </div>
+        <div class="form-group row">
+          <div class="col-md-4"></div>
+          <div class="col-md-5">
+            <!-- <button type="submit" class="btn btn-success">Save</button> -->
+            <%= f.submit "Save", class: "btn btn-success" %>
+            <% end %>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-md-4"></div>
+          <div class="col-md-5">
+            <h4 class="text-primary">Password</h4>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-4 col-form-label d-flex justify-content-end"><b>Current Password</b></label>
+          <div class="col-md-5">
+            <!-- <input type="Email" class="form-control" id="editEmail" placeholder="Someone@example.com"> -->
+            <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+            <%= render "devise/shared/error_messages", resource: resource %>
+            <%= f.password_field :current_password, class: "form-control", placeholder: "Enter current password", required: true, maxlength: "64" %>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-4 col-form-label d-flex justify-content-end"><b>New Password</b></label>
+          <div class="col-md-5">
+            <!-- <input type="Email" class="form-control" id="editEmail" placeholder="Someone@example.com"> -->
+            <%= f.password_field :password, class: "form-control", id:"password", placeholder: "Enter new password", required: true, maxlength: "64" %>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-4 col-form-label d-flex justify-content-end"><b>Password Confirm</b></label>
+          <div class="col-md-5">
+            <!-- <input type="Email" class="form-control" id="editEmail" placeholder="Someone@example.com"> -->
+            <%= f.password_field :password_confirmation, class: "form-control", id:"password_confirm", placeholder: "Enter new password confirmation", required: true, maxlength: "64" %>
+            <span id='message'></span>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-md-4"></div>
+          <div class="col-md-5">
+            <!-- <button type="submit" class="btn btn-success">Save</button> -->
+            <%= f.submit "Save", class: "btn btn-success" %>
+            <% end %>
+          </div>
+        </div>
+        <!-- </form> -->
+
+      </div>
+    </div>
+    <div class="rightpane">
+    </div>
+  </body>
+  <script type="text/javascript">
+    $('#password, #password_confirm').on('keyup', function () {
+      if ($('#password').val() == $('#password_confirm').val()) {
+        $('#message').html('Password Matching').css('color', 'green');
+      } else
+      $('#message').html('Password Not Matching').css('color', 'red');
+    });
+  </script>
+
