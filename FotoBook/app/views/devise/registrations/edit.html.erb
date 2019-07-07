@@ -42,7 +42,126 @@
 
 <%= link_to "Back", :back %>
 -->
+<style>
+  .nav-div{
+    width: 400px;
+  }
+  @media screen and (min-width: 600px){
+    .nav-div{
+      width:300px;
+    }
+  }
+  .nav-item .rounded-circle{
+    width: 40px;
+    height: 40px;
+    margin: 0;
+  }
+  .nav-item{
+   padding-left: 50px;
+ }
+ .form-signin
+ {
+   max-width: 330px;
+   padding: 15px;
+   margin: 0 auto;
+ }
+ .form-signin .form-signin-heading, .form-signin .checkbox
+ {
+   margin-bottom: 10px;
+ }
+ .form-signin .checkbox
+ {
+   font-weight: normal;
+ }
+ .form-signin .form-control
+ {
+   position: relative;
+   font-size: 16px;
+   height: auto;
+   padding: 10px;
+   -webkit-box-sizing: border-box;
+   -moz-box-sizing: border-box;
+   box-sizing: border-box;
+ }
+ .form-signin .form-control:focus
+ {
+   z-index: 2;
+ }
+ .form-signin input[type="text"]
+ {
+   margin-bottom: -1px;
+   border-bottom-left-radius: 0;
+   border-bottom-right-radius: 0;
+ }
+ .form-signin input[type="password"]
+ {
+   margin-bottom: 10px;
+   border-top-left-radius: 0;
+   border-top-right-radius: 0;
+ }
+ .account-wall
+ {
+   margin-top: 20px;
+   padding: 40px 0px 20px 0px;
+   background-color: #f7f7f7;
+   -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+   -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+ }
+ .login-title
+ {
+   font-size: 30px;
+   font-weight: bold;
+   display: block;
+ }
+ .profile-img
+ {
+   width: 96px;
+   height: 96px;
+   margin: 0 auto 10px;
+   display: block;
+   -moz-border-radius: 50%;
+   -webkit-border-radius: 50%;
+   border-radius: 50%;
+ }
 
+ .nav-item{
+  color: white;
+  font-weight: bold;
+}
+
+.nobd{
+  background-color: #eee;
+}
+.leftpane {
+  width: 15%;
+  height: 100%;
+  float: left;
+  border-collapse: collapse;
+}
+
+.middlepane {
+  margin-top: 20px;
+  width: 70%;
+  height: 100%;
+  float: left;
+  background-color: white;
+  border-collapse: collapse;
+/*    display: flex;
+flex-wrap: wrap;*/
+}
+
+.rightpane {
+  width: 15%;
+  height: 100%;
+  position: relative;
+  float: right;
+  border-collapse: collapse;
+}
+.nw-ct{
+  padding-top: 50px;
+}
+</style>
 
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
   <a class="navbar-brand" href="#">Fotobook</a>
@@ -56,7 +175,7 @@
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
         <%= image_tag("#{current_user.avatar}", class: "rounded-circle")%>
-        <%= link_to "#{current_user.lastname} #{current_user.firstname}", edit_user_registration_path,class: "text-white" %>
+        <%= link_to "#{current_user.lastname} #{current_user.firstname}", myProfile_path,class: "text-white" %>
       </li>
       <li class="nav-item mt-1">
         <%= link_to "Logout", destroy_user_session_path, class: "text-white",method: :delete %>
@@ -67,7 +186,7 @@
 <body class="nobd">
   <div class="leftpane">
     <div class="nw-ct text-center">
-      <a href="feeds.html"><b>Feed</b></a>
+      <a href="<%= root_path %>"><b>Feed</b></a>
       <br>
       <a href="feeds.html"><b>Discover</b></a>
     </div>
@@ -81,8 +200,9 @@
         </div>
       </div>
       <!-- <form class="pl-5 ml-lg-5"> -->
-        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-        <%= render "devise/shared/error_messages", resource: resource %>
+
+
+        <%= form_with model: @user, controller: 'users',action: 'update', local: true, method: 'put' do |f|%>
         <div class="form-group row">
           <div class="col-md-4"></div>
           <div class="col-md-5">
@@ -127,27 +247,28 @@
             <h4 class="text-primary">Password</h4>
           </div>
         </div>
+         <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+            <%= render "devise/shared/error_messages", resource: resource %>
         <div class="form-group row">
           <label class="col-md-4 col-form-label d-flex justify-content-end"><b>Current Password</b></label>
           <div class="col-md-5">
             <!-- <input type="Email" class="form-control" id="editEmail" placeholder="Someone@example.com"> -->
-            <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-            <%= render "devise/shared/error_messages", resource: resource %>
-            <%= f.password_field :current_password, class: "form-control", placeholder: "Enter current password", required: true, maxlength: "64" %>
+
+            <%= f.password_field :current_password, class: "form-control", placeholder: "Enter current password"%>
           </div>
         </div>
         <div class="form-group row">
           <label class="col-md-4 col-form-label d-flex justify-content-end"><b>New Password</b></label>
           <div class="col-md-5">
             <!-- <input type="Email" class="form-control" id="editEmail" placeholder="Someone@example.com"> -->
-            <%= f.password_field :password, class: "form-control", id:"password", placeholder: "Enter new password", required: true, maxlength: "64" %>
+            <%= f.password_field :password, class: "form-control", placeholder: "Enter new password" %>
           </div>
         </div>
         <div class="form-group row">
           <label class="col-md-4 col-form-label d-flex justify-content-end"><b>Password Confirm</b></label>
           <div class="col-md-5">
             <!-- <input type="Email" class="form-control" id="editEmail" placeholder="Someone@example.com"> -->
-            <%= f.password_field :password_confirmation, class: "form-control", id:"password_confirm", placeholder: "Enter new password confirmation", required: true, maxlength: "64" %>
+            <%= f.password_field :password_confirmation, class: "form-control", placeholder: "Enter new password confirmation"%>
             <span id='message'></span>
           </div>
         </div>
@@ -166,12 +287,12 @@
     <div class="rightpane">
     </div>
   </body>
-  <script type="text/javascript">
+<!--   <script type="text/javascript">
     $('#password, #password_confirm').on('keyup', function () {
       if ($('#password').val() == $('#password_confirm').val()) {
         $('#message').html('Password Matching').css('color', 'green');
       } else
       $('#message').html('Password Not Matching').css('color', 'red');
     });
-  </script>
+  </script> -->
 

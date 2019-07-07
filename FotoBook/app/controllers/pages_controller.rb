@@ -7,5 +7,6 @@ class PagesController < ApplicationController
   def new
   end
   def edit
+    @photos = current_user.photos.all
   end
 end
