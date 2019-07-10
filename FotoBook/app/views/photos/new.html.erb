@@ -114,38 +114,7 @@ button.btn {
 
 </style>
 
-<!-- <div class="page-header"><h1>Upload Photo</h1></div>
 
-<%= form_for @photo, html: { multipart: true } do |f| %>
-  <% if @photo.errors.any? %>
-    <div id="error_explanation">
-      <h2>
-        <%= "#{pluralize(@photo.errors.count, "error")} prohibited this photo from being saved:" %>
-      </h2>
-      <ul>
-        <% @photo.errors.full_messages.each do |msg| %>
-          <li>
-            <%= msg %>
-          </li>
-          <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="form-group">
-    <%= f.label :title %>
-    <%= f.text_field :title, class: 'form-control' %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :image %>
-    <%= f.file_field :image, class: 'form-control' %>
-  </div>
-
-  <div class="form-group">
-        <%= f.submit 'Upload Photo', class: 'btn btn-default' %>
-    </div>
-    <% end %> -->
     <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
       <a class="navbar-brand" href="#">Fotobook</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -203,16 +172,17 @@ button.btn {
               <!-- <input type="text" class="form-control" name="PhotoTitle" placeholder="Photo Title"> -->
               <%= f.text_field :title, class: 'form-control' ,placeholder: 'Photo Title'%>
               <p style="margin-top: 10px;"> Sharing mode </p>
-              <select class="form-control" style="width: 100px;">
+              <%= f.select :sharingMode, [['Public', :isPublic],['Private', :isPrivate]],{},class: "form-control",style: 'width: 100px' %>
+<!--               <select class="form-control" style="width: 100px;">
                 <option name="Photo[sharingMode]" value="isPublic">Public</option>
                 <option name="Photo[sharingMode]" value="isPrivate">Private</option>
-              </select>
+              </select> -->
             </div>
             <div class=" col-12 col-lg-6">
               <div class="form-group">
                 <p>Description</p>
                 <!-- <textarea class="form-control"rows="4" placeholder="Album Description"></textarea> -->
-                <%= f.text_area :description, class: 'form-control',rows: 4, placeholder: 'Album Description' %>
+                <%= f.text_area :description, class: 'form-control',rows: 4, placeholder: 'Photo Description' %>
               </div>
             </div>
             <div class="row">

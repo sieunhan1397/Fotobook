@@ -1,0 +1,238 @@
+<style type="text/css">
+
+  .nav-div{
+    width: 400px;
+  }
+  @media screen and (min-width: 600px){
+    .nav-div{
+      width:300px;
+    }
+  }
+  .nav-item .rounded-circle{
+    width: 40px;
+    height: 40px;
+    margin: 0;
+  }
+  .nav-item{
+   padding-left: 50px;
+ }
+
+ .login-title
+ {
+   font-size: 30px;
+   font-weight: bold;
+   display: block;
+ }
+ .profile-img
+ {
+   width: 96px;
+   height: 96px;
+   margin: 0 auto 10px;
+   display: block;
+   -moz-border-radius: 50%;
+   -webkit-border-radius: 50%;
+   border-radius: 50%;
+ }
+
+ .nav-item{
+  color: white;
+  font-weight: bold;
+}
+
+.nobd{
+  background-color: #eee;
+}
+.leftpane {
+  width: 15%;
+  height: 100%;
+  float: left;
+  border-collapse: collapse;
+}
+
+.middlepane {
+  margin-top: 20px;
+  width: 70%;
+  height: 100%;
+  float: left;
+  background-color: white;
+  border-collapse: collapse;
+}
+
+.rightpane {
+  width: 15%;
+  height: 100%;
+  position: relative;
+  float: right;
+  border-collapse: collapse;
+}
+.nw-ct{
+  padding-top: 50px;
+}
+
+
+.inputPhoto{
+ padding: 10px;
+}
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  width : 180px;
+  height: 180px;
+}
+.upload-btn-wrapper input[type=file] {
+  font-size: 600px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+.upload-btn-wrapper:hover{
+  transition: transform .2s;
+  transform: scale(0.95);
+}
+.img_wrp {
+  display: inline-block;
+  position: relative;
+}
+.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+button.btn {
+  width:100%;
+  height: 100%;
+  border: 3px dashed #a78f8f;
+  color: gray;
+  background-color: #d6bfbf24;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+</style>
+
+
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+  <a class="navbar-brand" href="#">Fotobook</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <div class="navbar-nav mr-auto nav-div">
+      <input type="text" class="form-control" placeholder="Search"/>
+    </div>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <%= image_tag("#{current_user.avatar}", class: "rounded-circle")%>
+        <%= link_to "#{current_user.lastname} #{current_user.firstname}", myProfile_path,class: "text-white" %>
+      </li>
+      <li class="nav-item mt-1">
+        <%= link_to "Logout", destroy_user_session_path, class: "text-white",method: :delete %>
+      </li>
+    </ul>
+  </div>
+</nav>
+<body class="nobd">
+  <div class="leftpane">
+    <div class="nw-ct text-center">
+      <a href="feeds.html"><b>Feed</b></a>
+      <br>
+      <a href="feeds.html"><b>Discover</b></a>
+    </div>
+  </div>
+  <div class="middlepane">
+    <div class="container-fluid inputPhoto">
+      <div class="row">
+        <div class="col-12">
+          <p><b>Edit Photo</b></p>
+          <hr>
+        </div>
+      </div>
+      <%= form_with model: @photo, controller: 'photos',action: 'update', local: true, method: 'put' do |f|%>
+      <div class="row">
+        <div class="col-12 col-lg-6">
+          <p> Title </p>
+
+          <%= f.text_field :title, class: 'form-control' ,placeholder: 'Photo Title'%>
+          <p style="margin-top: 10px;"> Sharing mode </p>
+          <%= f.select :sharingMode, [['Public', :isPublic],['Private', :isPrivate]],{},class: "form-control",style: 'width: 100px' %>
+
+            </div>
+            <div class=" col-12 col-lg-6">
+              <div class="form-group">
+                <p>Description</p>
+
+                <%= f.text_area :description, class: 'form-control',rows: 4, placeholder: 'Album Description' %>
+              </div>
+            </div>
+            <div class="row">
+
+              <div class="col images m-3">
+                <div class="upload-btn-wrapper mt-2 float-left" id="addImg" style="display: none">
+                  <button class="btn"><img src="/assets/plus.png" style="width: 50px;"></button>
+
+                  <%= f.file_field :image, class: 'form-control', onchange: 'showImage.call(this)' %>
+                </div>
+                <div class="img float-left mt-2 mr-1">
+                  <div ng-repeat="file in imagefinaldata" class="img_wrp">
+                   <img style="height: 180px;width:180px" src="<%=@photo.image.url%>" class="imgResponsiveMax" alt="" />
+                   <img class="close m-1" src="/assets/close.jpeg" onClick="click()"style="width:30px; height: 30px;" />
+                 </div>
+               </div>
+             </div>
+           </div>
+
+           <div class="col-12 m-3 d-flex">
+            <div>
+              <%= f.submit 'Save', class: 'btn btn-success' %>
+            </div>
+            <div class="pl-4">
+             <%= link_to 'Delete', photo_path(@photo), class: 'btn btn-danger', method: :delete, data: {confirm: 'Are you sure?'} %>
+           </div>
+         </div>
+
+       </div>
+       <% end %>
+     </div>
+   </div>
+ </div>
+ <div class="rightpane">
+ </div>
+</body>
+<script type="text/javascript">
+  $(document).ready(
+    function(){
+      $('img.close').click(
+        function(){
+          if(document.getElementById("addImg").style.display = "none")
+          {
+            document.getElementById("addImg").style.display = "inline"
+          }
+          $(this).parent().parent().empty();
+        }
+        )
+    })
+  function showImage(){
+    if(this.files && this.files[0])
+    {
+      var obj = new FileReader();
+      obj.onload = function(data){
+       $('.images').prepend(' <div class="img float-left mt-2 mr-1"><div ng-repeat="file in imagefinaldata" class="img_wrp"><img style="height: 180px;width:180px" src="' + data.target.result + '" class="imgResponsiveMax" alt="" /><img class="close m-1" src="/assets/close.jpeg" onClick="click()"style="width:30px; height: 30px" /></div></div> ');
+       $('.upload-btn-wrapper').css({ display: "none" });
+       $(document).ready(
+        function(){
+          $('img.close').click(
+            function(){
+              $(this).parent().parent().empty();
+              $('.upload-btn-wrapper').css({ display: "block" });
+            }
+            )
+        })
+     }
+     obj.readAsDataURL(this.files[0]);
+   }
+ }
+</script>

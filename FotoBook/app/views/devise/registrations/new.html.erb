@@ -1,7 +1,4 @@
 <style type="text/css">
-  // Place all the styles related to the Users controller here.
-  // They will automatically be included in application.css.
-  // You can use Sass (SCSS) here: http://sass-lang.com/
   .nav-div{
     width: 400px;
   }
@@ -167,31 +164,7 @@ cursor: pointer;
 transition: 0.3s;
 }
 .vvv img:hover {opacity: 0.7;}
-/*.fb-photo{
-  display: flex;
-  margin-bottom: 20px;
-  margin-left: 10px;
-  border: 1px solid black;
-  background-color: #eee;
-}
-.photo-img{
-  width: 50%;
-}
-.photo-desc{
-  margin-left: 10px;
-  width: 50%;
-}
-.photo-desc .content {
-  overflow: hidden;
-}
-.photo-img img{
-  height: 100%;
-  width: 100%
-}
-.photo-desc img{
-  width: 18%;
-  margin-top: 10px;
-  }*/
+
   .container {
     background-color: #eee;
   }
@@ -201,30 +174,6 @@ transition: 0.3s;
     padding-top: 20px;
     padding-left: 10px;
   }
-/*.bbb{
-  display: flex;
-  width: 100%;
-  height: 100%;
-}
-*/
-/* The Modal (background) */
-/*.bbb{
-  position: relative;
-  }*/
-
-
-/*.i1{
-  left: 0;
-  top: 0;
-  position: absolute;
-  transform: rotateZ(10deg);
-}
-.i2{
-  left: 0;
-  top: 0;
-  position: absolute;
-  transform: rotateZ(15deg);
-  }*/
   .carousel-inner img {
     width: 100%;
     height: 100%;
@@ -246,33 +195,7 @@ transition: 0.3s;
     </ul>
   </div>
 </nav>
-<!-- <h2>Sign up</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-  <% end %> -->
   <body>
     <div class="container">
       <div class="row">
@@ -292,23 +215,6 @@ transition: 0.3s;
             </div>
           </div>
           <div class="account-wall">
-<!--           <form class="form-signin" id="form-register" method="post" oninput='password_confirm.setCustomValidity(password_confirm.value != password.value ? "Passwords do not match." : "")'>
-            <label>First Name</label>
-            <input type="text" class="form-control" name="firstname" placeholder="First Name" required maxlength="25" autofocus>
-            <label>Last Name</label>
-            <input type="text" class="form-control" name="lastname" placeholder="Last Name" required maxlength="25">
-            <label>Email</label>
-            <input type="Email" class="form-control" name="email" placeholder="Email" required maxlength="255">
-            <label>Password</label>
-            <input type="password" class="form-control" name="password" id="password" placeholder="Password" required maxlength="64">
-            <label>Password Confirm</label>
-            <input type="password" class="form-control" name="password_confirm" id="password_confirm"placeholder="Password" required maxlength="64">
-            <div class="clearfix"></div>
-            <div class="text-center">
-              <button class="btn btn-lg btn-primary" type="submit" value="submit" id="signup_btn">
-              Signup</button>
-            </div>
-          </form> -->
           <%= form_for(resource, as: resource_name, url: registration_path(resource_name),html: {class: "form-signin"}) do |f| %>
           <%= render "devise/shared/error_messages", resource: resource %>
           <label>First Name</label>

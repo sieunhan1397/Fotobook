@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users
   # devise_for :users, controllers: { registrations: 'registrations' }
-  root to: 'pages#index'
   as :users do
     get 'signin' => 'devise/sessions#new'
     post 'signin' => 'devise/sessions#create'
@@ -13,8 +12,14 @@ Rails.application.routes.draw do
   end
   resources :photos
   resources :users
+  resources :albums do
+    resources :pictures, :only => [:create, :destroy]
+  end
+  # resources :pictures
   #   as :photo do
   #   get 'newPhoto' => 'photos#new'
   # end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  root to: 'pages#index'
+  # delete "deleteAlbumPicture/:id", to:"pictures#destroy", as: 'deleteAlbumPicture'
 end
