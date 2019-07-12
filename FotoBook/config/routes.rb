@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   end
   as :pages do
     get 'myProfile' => 'pages#edit'
+    get 'discover' => 'pages#discover'
   end
   resources :photos
   resources :users

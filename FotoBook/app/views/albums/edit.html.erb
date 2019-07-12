@@ -17,23 +17,6 @@
    padding-left: 50px;
  }
 
- .login-title
- {
-   font-size: 30px;
-   font-weight: bold;
-   display: block;
- }
- .profile-img
- {
-   width: 96px;
-   height: 96px;
-   margin: 0 auto 10px;
-   display: block;
-   -moz-border-radius: 50%;
-   -webkit-border-radius: 50%;
-   border-radius: 50%;
- }
-
  .nav-item{
   color: white;
   font-weight: bold;
@@ -113,28 +96,6 @@ button.btn {
 }
 
 </style>
-
-
-<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
-  <a class="navbar-brand" href="#">Fotobook</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <div class="navbar-nav mr-auto nav-div">
-      <input type="text" class="form-control" placeholder="Search"/>
-    </div>
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <%= image_tag("#{current_user.avatar}", class: "rounded-circle")%>
-        <%= link_to "#{current_user.lastname} #{current_user.firstname}", myProfile_path,class: "text-white" %>
-      </li>
-      <li class="nav-item mt-1">
-        <%= link_to "Logout", destroy_user_session_path, class: "text-white",method: :delete %>
-      </li>
-    </ul>
-  </div>
-</nav>
 <body class="nobd">
   <div class="leftpane">
     <div class="nw-ct text-center">
@@ -158,51 +119,51 @@ button.btn {
           <%= f.text_field :title, class: 'form-control' ,placeholder: 'Photo Title'%>
           <p style="margin-top: 10px;"> Sharing mode </p>
           <%= f.select :sharingMode, [['Public', :isPublic],['Private', :isPrivate]],{},class: "form-control",style: 'width: 100px' %>
-            </div>
-            <div class=" col-12 col-lg-6">
-              <div class="form-group">
-                <p>Description</p>
-                <%= f.text_area :description, class: 'form-control',rows: 4, placeholder: 'Album Description' %>
-              </div>
-            </div>
-            <div class="row">
+        </div>
+        <div class=" col-12 col-lg-6">
+          <div class="form-group">
+            <p>Description</p>
+            <%= f.text_area :description, class: 'form-control',rows: 4, placeholder: 'Album Description' %>
+          </div>
+        </div>
+        <div class="row">
 
-              <div class="col images m-3">
-                <div id="image-preview"></div>
-                <div class="upload-btn-wrapper mt-2 float-left" id="addImg">
-                  <button class="btn"><img src="/assets/plus.png" style="width: 50px;"></button>
-                   <%= file_field_tag "images[]", type: :file, multiple: true,class: 'form-control' %>
-                </div>
-                <div class="img float-left mt-2 mr-1">
-                  <% @pictures.each do |pic| %>
-                  <div ng-repeat="file in imagefinaldata" class="img_wrp">
-                   <img style="height: 180px;width:180px" src="<%=pic.image.url%>" class="imgResponsiveMax" alt="" />
-                   <!-- <img class="close m-1" src="/assets/close.jpeg" onClick="click()"style="width:30px; height: 30px;" /> -->
-                   <%= link_to album_picture_path(@album,pic), method: :delete do %>
-                      <i class="fa fa-times close m-1" aria-hidden="true" style="width:30px; height: 30px;"></i>
-                   <% end %>
-                 </div>
-                 <%end%>
-               </div>
+          <div class="col images m-3">
+            <div id="image-preview"></div>
+            <div class="upload-btn-wrapper mt-2 float-left" id="addImg">
+              <button class="btn"><img src="/assets/plus.png" style="width: 50px;"></button>
+              <%= file_field_tag "images[]", type: :file, multiple: true,class: 'form-control' %>
+            </div>
+            <div class="img float-left mt-2 mr-1">
+              <% @pictures.each do |pic| %>
+              <div ng-repeat="file in imagefinaldata" class="img_wrp">
+               <img style="height: 180px;width:180px" src="<%=pic.image.url%>" class="imgResponsiveMax" alt="" />
+               <!-- <img class="close m-1" src="/assets/close.jpeg" onClick="click()"style="width:30px; height: 30px;" /> -->
+               <%= link_to album_picture_path(@album,pic), method: :delete do %>
+               <i class="fa fa-times close m-1" aria-hidden="true" style="width:30px; height: 30px;"></i>
+               <% end %>
              </div>
-           </div>
-
-           <div class="col-12 m-3 d-flex">
-            <div>
-              <%= f.submit 'Save', class: 'btn btn-success' %>
-            </div>
-            <div class="pl-4">
-             <%= link_to 'Delete', album_path(@album), class: 'btn btn-danger', method: :delete, data: {confirm: 'Are you sure?'} %>
+             <%end%>
            </div>
          </div>
-
        </div>
-       <% end %>
+
+       <div class="col-12 m-3 d-flex">
+        <div>
+          <%= f.submit 'Save', class: 'btn btn-success' %>
+        </div>
+        <div class="pl-4">
+         <%= link_to 'Delete', album_path(@album), class: 'btn btn-danger', method: :delete, data: {confirm: 'Are you sure?'} %>
+       </div>
      </div>
+
    </div>
+   <% end %>
  </div>
- <div class="rightpane">
- </div>
+</div>
+</div>
+<div class="rightpane">
+</div>
 </body>
 <script type="text/javascript">
   function choose() {

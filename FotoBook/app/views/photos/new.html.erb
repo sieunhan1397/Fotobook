@@ -17,23 +17,6 @@
    padding-left: 50px;
  }
 
- .login-title
- {
-   font-size: 30px;
-   font-weight: bold;
-   display: block;
- }
- .profile-img
- {
-   width: 96px;
-   height: 96px;
-   margin: 0 auto 10px;
-   display: block;
-   -moz-border-radius: 50%;
-   -webkit-border-radius: 50%;
-   border-radius: 50%;
- }
-
  .nav-item{
   color: white;
   font-weight: bold;
@@ -113,66 +96,44 @@ button.btn {
 }
 
 </style>
-
-
-    <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
-      <a class="navbar-brand" href="#">Fotobook</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="collapsibleNavbar">
-        <div class="navbar-nav mr-auto nav-div">
-          <input type="text" class="form-control" placeholder="Search"/>
+<body class="nobd">
+  <div class="leftpane">
+    <div class="nw-ct text-center">
+      <a href="feeds.html"><b>Feed</b></a>
+      <br>
+      <a href="feeds.html"><b>Discover</b></a>
+    </div>
+  </div>
+  <div class="middlepane">
+    <div class="container-fluid inputPhoto">
+      <div class="row">
+        <div class="col-12">
+          <p><b>New Photo</b></p>
+          <hr>
         </div>
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <%= image_tag("#{current_user.avatar}", class: "rounded-circle")%>
-            <%= link_to "#{current_user.lastname} #{current_user.firstname}", myProfile_path,class: "text-white" %>
+      </div>
+      <%= form_for @photo, html: { multipart: true } do |f| %>
+      <% if @photo.errors.any? %>
+      <div id="error_explanation">
+        <h2>
+          <%= "#{pluralize(@photo.errors.count, "error")} prohibited this photo from being saved:" %>
+        </h2>
+        <ul>
+          <% @photo.errors.full_messages.each do |msg| %>
+          <li>
+            <%= msg %>
           </li>
-          <li class="nav-item mt-1">
-            <%= link_to "Logout", destroy_user_session_path, class: "text-white",method: :delete %>
-          </li>
+          <% end %>
         </ul>
       </div>
-    </nav>
-    <body class="nobd">
-      <div class="leftpane">
-        <div class="nw-ct text-center">
-          <a href="feeds.html"><b>Feed</b></a>
-          <br>
-          <a href="feeds.html"><b>Discover</b></a>
-        </div>
-      </div>
-      <div class="middlepane">
-        <div class="container-fluid inputPhoto">
-          <div class="row">
-            <div class="col-12">
-              <p><b>New Photo</b></p>
-              <hr>
-            </div>
-          </div>
-          <%= form_for @photo, html: { multipart: true } do |f| %>
-          <% if @photo.errors.any? %>
-          <div id="error_explanation">
-            <h2>
-              <%= "#{pluralize(@photo.errors.count, "error")} prohibited this photo from being saved:" %>
-            </h2>
-            <ul>
-              <% @photo.errors.full_messages.each do |msg| %>
-              <li>
-                <%= msg %>
-              </li>
-              <% end %>
-            </ul>
-          </div>
-          <% end %>
-          <div class="row">
-            <div class="col-12 col-lg-6">
-              <p> Title </p>
-              <!-- <input type="text" class="form-control" name="PhotoTitle" placeholder="Photo Title"> -->
-              <%= f.text_field :title, class: 'form-control' ,placeholder: 'Photo Title'%>
-              <p style="margin-top: 10px;"> Sharing mode </p>
-              <%= f.select :sharingMode, [['Public', :isPublic],['Private', :isPrivate]],{},class: "form-control",style: 'width: 100px' %>
+      <% end %>
+      <div class="row">
+        <div class="col-12 col-lg-6">
+          <p> Title </p>
+          <!-- <input type="text" class="form-control" name="PhotoTitle" placeholder="Photo Title"> -->
+          <%= f.text_field :title, class: 'form-control' ,placeholder: 'Photo Title'%>
+          <p style="margin-top: 10px;"> Sharing mode </p>
+          <%= f.select :sharingMode, [['Public', :isPublic],['Private', :isPrivate]],{},class: "form-control",style: 'width: 100px' %>
 <!--               <select class="form-control" style="width: 100px;">
                 <option name="Photo[sharingMode]" value="isPublic">Public</option>
                 <option name="Photo[sharingMode]" value="isPrivate">Private</option>

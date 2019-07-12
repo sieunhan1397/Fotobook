@@ -81,13 +81,18 @@
              </div>
              <div class="dis p-2" style="display:block;background-color:rgb(248, 248, 248);width:50%">
               <div class="container pl-1">
-                <%= image_tag("#{current_user.avatar}", class: "rounded-circle")%>
-                <b><%= link_to "#{current_user.lastname} #{current_user.firstname}", myProfile_path,class: "text-Blue" %></b>
+                <% if photo.user.avatar?%>
+                <img src="<%=photo.user.avatar.url%>" class="rounded-circle" alt="" />
+                <% else %>
+                <img src="/assets/default-user.png" class="rounded-circle" alt="" />
+                <% end %>
+                <b><%= link_to "#{photo.user.lastname} #{photo.user.firstname}", myProfile_path,class: "text-Blue" %></b>
                 <div></div>
                 <span><b><%=photo.title%></b></span>
                 <p class="des-scroll"><%=photo.description%></p>
                 <div class="heart">
                   <i class="fa fa-heart mt-2" style="color:rgb(67, 74, 153)"></i>
+                  <span><%= photo.updated_at%> </span>
                 </div>
               </div>
             </div>
@@ -124,28 +129,28 @@
 </div>
 </div>
 </div>
-   <div class="modal" id="myModal">
-      <div class="modal-dialog">
-        <div class="modal-content">
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
 
 
-          <div class="modal-header">
-            <h4 id="photo-title" value="">Modal Heading</h4>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-          </div>
-
-
-          <div class="modal-body">
-            <img src="" class="imagepreview" style="width: 100%;" >
-          </div>
-
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-          </div>
-
-        </div>
+      <div class="modal-header">
+        <h4 id="photo-title" value="">Modal Heading</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
+
+
+      <div class="modal-body">
+        <img src="" class="imagepreview" style="width: 100%;" >
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
     </div>
+  </div>
+</div>
 
 </div>
 <div class="rightpane">

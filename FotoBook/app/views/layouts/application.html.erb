@@ -7,7 +7,34 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
-
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+  <a class="navbar-brand" href="#">Fotobook</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <div class="navbar-nav mr-auto nav-div">
+      <input type="text" class="form-control" placeholder="Search"/>
+    </div>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <% if !current_user.nil? %>
+        <% if current_user.avatar?%>
+        <img src="<%=current_user.avatar.url%>" class="rounded-circle" alt="" />
+        <% else %>
+        <img src="/assets/default-user.png" class="rounded-circle" alt="" />
+        <% end %>
+        <%= link_to "#{current_user.lastname} #{current_user.firstname}", myProfile_path,class: "text-white" %>
+      </li>
+      <li class="nav-item mt-2 pl-5">
+        <%= link_to "Logout", destroy_user_session_path, class: "text-white",method: :delete %>
+        <% else %>
+        <%= link_to "Login", new_user_session_path,class: "text-white" %>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+</nav>
 <body>
   <%= yield %>
 </body>

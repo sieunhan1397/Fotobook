@@ -96,28 +96,6 @@ button.btn {
 }
 
 </style>
-
-
-<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
-  <a class="navbar-brand" href="#">Fotobook</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <div class="navbar-nav mr-auto nav-div">
-      <input type="text" class="form-control" placeholder="Search"/>
-    </div>
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <%= image_tag("#{current_user.avatar}", class: "rounded-circle")%>
-        <%= link_to "#{current_user.lastname} #{current_user.firstname}", myProfile_path,class: "text-white" %>
-      </li>
-      <li class="nav-item mt-1">
-        <%= link_to "Logout", destroy_user_session_path, class: "text-white",method: :delete %>
-      </li>
-    </ul>
-  </div>
-</nav>
 <body class="nobd">
   <div class="leftpane">
     <div class="nw-ct text-center">
@@ -208,7 +186,6 @@ button.btn {
      image_base64 = e.target.result;
      var html = ' <div class="img float-left mt-2 mr-1"><div ng-repeat="file in imagefinaldata" class="img_wrp" class=""><img style="height: 180px;width:180px" src="' + image_base64 + '" class="imgResponsiveMax" alt="" />'
 
-     /*<img class="close m-1" src="/assets/cl.png" onClick="click()"style="width:30px; height: 30px" /></div></div> ';*/
      preview.append(html);
    };
    reader.readAsDataURL(files[i]);
