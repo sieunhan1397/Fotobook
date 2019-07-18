@@ -20,7 +20,7 @@ class PhotosController < ApplicationController
     @photo.user_id = current_user.id if current_user
     if @photo.save
       flash[:notice] = "Successfully added new photo!"
-      redirect_to myProfile_path
+      redirect_to my_profile_path
     else
       flash[:alert] = "Error adding new photo!"
       render :new
@@ -31,7 +31,7 @@ class PhotosController < ApplicationController
     @photo = Photo.find(params[:id])
     puts @photo.id
     if @photo.update_attributes(photo_params)
-      redirect_to myProfile_path
+      redirect_to my_profile_path
     else
       redirect_to edit_photo_path
     end
@@ -41,7 +41,7 @@ class PhotosController < ApplicationController
     @photo = Photo.find(params[:id])
     if @photo.destroy
       flash[:notice] = "Successfully deleted photo!"
-      redirect_to myProfile_path
+      redirect_to my_profile_path
     else
       flash[:alert] = "Error deleting photo!"
       redirect_to edit_photo_path
@@ -52,6 +52,6 @@ class PhotosController < ApplicationController
 
  #Permitted parameters when creating a photo. This is used for security reasons.
   def photo_params
-    params.require(:photo).permit(:title, :image, :description, :sharingMode)
+    params.require(:photo).permit(:title, :image, :description, :sharing_mode)
   end
 end

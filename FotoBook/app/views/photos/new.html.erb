@@ -133,7 +133,7 @@ button.btn {
           <!-- <input type="text" class="form-control" name="PhotoTitle" placeholder="Photo Title"> -->
           <%= f.text_field :title, class: 'form-control' ,placeholder: 'Photo Title'%>
           <p style="margin-top: 10px;"> Sharing mode </p>
-          <%= f.select :sharingMode, [['Public', :isPublic],['Private', :isPrivate]],{},class: "form-control",style: 'width: 100px' %>
+          <%= f.select :sharing_mode, [['Public', :isPublic],['Private', :isPrivate]],{},class: "form-control",style: 'width: 100px' %>
 <!--               <select class="form-control" style="width: 100px;">
                 <option name="Photo[sharingMode]" value="isPublic">Public</option>
                 <option name="Photo[sharingMode]" value="isPrivate">Private</option>

@@ -24,7 +24,7 @@ class AlbumsController < ApplicationController
           }
         end
 
-        format.html { redirect_to myProfile_path, notice: "Album was successfully created." }
+        format.html { redirect_to my_profile_path, notice: "Album was successfully created." }
         format.json { render json: @album, status: :created, location: @album }
       else
         format.html { render action: "new" }
@@ -41,7 +41,7 @@ class AlbumsController < ApplicationController
           @album.pictures.create(image: image)
         }
       end
-      redirect_to myProfile_path
+      redirect_to my_profile_path
     else
       redirect_to edit_album_path
     end
@@ -50,7 +50,7 @@ class AlbumsController < ApplicationController
     @album = Album.find(params[:id])
     if @album.destroy
       flash[:notice] = "Successfully deleted album!"
-      redirect_to myProfile_path
+      redirect_to my_profile_path
     else
       flash[:alert] = "Error deleting album!"
       redirect_to edit_album_path
@@ -61,6 +61,6 @@ class AlbumsController < ApplicationController
 
  #Permitted parameters when creating a photo. This is used for security reasons.
  def album_params
-  params.require(:album).permit(:title, :description, :sharingMode)
+  params.require(:album).permit(:title, :description, :sharing_mode)
 end
 end
