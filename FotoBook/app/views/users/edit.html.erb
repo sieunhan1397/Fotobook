@@ -87,11 +87,41 @@ flex-wrap: wrap;*/
 .images .btn:hover {
   background-color: black;
 }
+
+.butn {
+  background: #d920d3;
+  background-image: -webkit-linear-gradient(top, #d920d3, #512cb8);
+  background-image: -moz-linear-gradient(top, #d920d3, #512cb8);
+  background-image: -ms-linear-gradient(top, #d920d3, #512cb8);
+  background-image: -o-linear-gradient(top, #d920d3, #512cb8);
+  background-image: linear-gradient(to bottom, #d920d3, #512cb8);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  text-shadow: 1px 1px 3px #666666;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 15px;
+  padding: 6px 20px 6px 20px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.butn:hover {
+  background: #dc3cfc;
+  background-image: -webkit-linear-gradient(top, #dc3cfc, #d93484);
+  background-image: -moz-linear-gradient(top, #dc3cfc, #d93484);
+  background-image: -ms-linear-gradient(top, #dc3cfc, #d93484);
+  background-image: -o-linear-gradient(top, #dc3cfc, #d93484);
+  background-image: linear-gradient(to bottom, #dc3cfc, #d93484);
+  color: white;
+  text-decoration: none;
+}
 </style>
 <body class="nobd">
   <div class="leftpane">
     <div class="nw-ct text-center">
-      <%= link_to "Feed", root_path,class: 'font-weight-bold' %>
+      <%= link_to "Feed", feed_path,class: 'font-weight-bold' %>
       <br>
       <%= link_to "Discover", discover_path,class: 'font-weight-bold' %>
     </div>
@@ -203,8 +233,7 @@ flex-wrap: wrap;*/
                 </div>
                 <%= form_for(current_user.active_relationships.find_by(followed_id: u.id), html: { method: :delete }) do |f| %>
                 <div class="text-center mb-3">
-                  <!-- <button class="btn btn-primary">unfollow</button> -->
-                  <%= f.submit "Unfollow", class: "btn btn-primary" %>
+                  <%= f.submit "Unfollow", class: "butn" %>
                 </div>
                 <%end%>
               </div>
@@ -241,15 +270,14 @@ flex-wrap: wrap;*/
                 <% if current_user.following?(u) %>
                 <%= form_for(current_user.active_relationships.find_by(followed_id: u.id), html: { method: :delete }) do |f| %>
                 <div class="text-center mb-3">
-                    <%= f.submit "following", class: "btn btn-primary" %>
+                    <%= f.submit "following", class: "butn" %>
                 </div>
                 <%end%>
                 <% else %>
                 <%= form_for(current_user.active_relationships.build) do |f| %>
                 <div class="text-center mb-3">
                   <div><%= hidden_field_tag :followed_id, u.id %></div>
-                  <!-- <button class="btn btn-primary">follow</button> -->
-                  <%= f.submit "Follow", class: "btn btn-primary" %>
+                  <%= f.submit "Follow", class: "butn" %>
                 </div>
                 <%end%>
                 <%end%>

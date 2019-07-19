@@ -8,7 +8,7 @@ class User < ApplicationRecord
   has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
-  has_attached_file :avatar
+  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100#" }, :default_url => "./assets/heart.png"
   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable, :validatable
   validates :firstname, presence: true, length: { maximum: 25 }
@@ -17,7 +17,7 @@ class User < ApplicationRecord
   validates :email, presence: true, length: { maximum: 255 }, format: { with: VALID_EMAIL_REGEX },  uniqueness: { case_sensitive: false }
   validates_attachment_content_type :avatar, content_type: /\Aimage/
   validates_attachment_file_name :avatar, matches: [/png\Z/, /jpe?g\Z/]
-
+  acts_as_voter
     # Follows a user.
   def follow(other_user)
     following << other_user

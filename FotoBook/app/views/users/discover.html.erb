@@ -53,11 +53,41 @@
   .photo-area{
     width: 45%;
   }
+  .butn {
+  background: #d920d3;
+  background-image: -webkit-linear-gradient(top, #d920d3, #512cb8);
+  background-image: -moz-linear-gradient(top, #d920d3, #512cb8);
+  background-image: -ms-linear-gradient(top, #d920d3, #512cb8);
+  background-image: -o-linear-gradient(top, #d920d3, #512cb8);
+  background-image: linear-gradient(to bottom, #d920d3, #512cb8);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  text-shadow: 1px 1px 3px #666666;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 11px;
+  text-decoration: none;
+  font-weight: bold;
+  height:20px;
+  width:60px;
+}
+
+.butn:hover {
+  background: #dc3cfc;
+  background-image: -webkit-linear-gradient(top, #dc3cfc, #d93484);
+  background-image: -moz-linear-gradient(top, #dc3cfc, #d93484);
+  background-image: -ms-linear-gradient(top, #dc3cfc, #d93484);
+  background-image: -o-linear-gradient(top, #dc3cfc, #d93484);
+  background-image: linear-gradient(to bottom, #dc3cfc, #d93484);
+  color: white;
+  text-decoration: none;
+}
 </style>
 <body class="nobd">
   <div class="leftpane">
     <div class="nw-ct text-center">
-      <%= link_to "Feed", root_path,class: 'font-weight-bold' %>
+      <%= link_to "Feed", feed_path,class: 'font-weight-bold' %>
       <br>
       <%= link_to "Discover", discover_path,class: 'font-weight-bold' %>
     </div>
@@ -76,35 +106,57 @@
         <div class="tab-content">
           <div id="photo" class="container-fluid tab-pane active">
             <div class="row">
+             <% if @photos %>
              <% @photos.each do |photo| %>
+              <% if photo.isPrivate? %>
+                <% next %>
+              <% end %>
              <div class="d-inline-flex w-50 p-2" >
               <div class="photo-area">
                <img title="<%=photo.title%>" desc="<%=photo.description%>" src="<%=photo.image.url%>"style="width:100%;height:100%;cursor:pointer" class="pop">
              </div>
              <div class="dis p-2" style="display:block;background-color:rgb(248, 248, 248);width:55%">
-              <div class="container pl-1">
+              <div class="container pl-0">
+                <div class="d-flex">
                 <% if photo.user.avatar?%>
                 <img src="<%=photo.user.avatar.url%>" class="rounded-circle" alt="" />
                 <% else %>
                 <img src="/assets/default-user.png" class="rounded-circle" alt="" />
                 <% end %>
-                <b><%= link_to "#{photo.user.lastname} #{photo.user.firstname}", profile_path(photo.user.id),class: "text-Blue" %></b>
+                <span class="mt-2" style="font-size: 13px;"><%= link_to "#{photo.user.lastname} #{photo.user.firstname}", profile_path(photo.user.id),class: "text-Blue font-weight-bold" %></span>
+                <%if current_user %>
+                  <% if photo.user.id !=  current_user.id %>
+                    <% if current_user.following?(photo.user) %>
+                      <%= form_for(current_user.active_relationships.find_by(followed_id: photo.user.id), html: { method: :delete }) do |f| %>
+                        <%= f.submit "following", class: "butn mt-2 ml-2" %>
+                      <%end%>
+                      <% else %>
+                      <%= form_for(current_user.active_relationships.build) do |f| %>
+                        <div><%= hidden_field_tag :followed_id, photo.user.id %></div>
+                        <%= f.submit "follow", class: "butn mt-2 ml-2"%>
+                      <%end%>
+                    <%end%>
+                  <%end%>
+                <%end%>
+              </div>
                 <div></div>
                 <span><b><%=photo.title%></b></span>
                 <p class="des-scroll"><%=photo.description%></p>
-                <div class="heart">
-                  <i class="fa fa-heart mt-2" style="color:rgb(67, 74, 153)"></i>
-                  <span class="pl-3"><%=photo.updated_at.strftime("%d-%m-%Y at %I:%M%P")%></span>
-                </div>
+                  <%= render "vote_form", photo: photo%>
               </div>
             </div>
           </div>
+          <% end %>
           <% end %>
         </div>
       </div>
       <div id="album" class="container-fluid tab-pane fade">
         <div class="row">
+          <% if @albums %>
          <% @albums.each do |album| %>
+          <% if album.isPrivate? %>
+            <% next %>
+          <% end %>
          <div class="d-inline-flex w-50 p-2" >
           <div class="photo-area" style="position: relative;">
             <img src="<%=album.pictures.first.image.url%>"style="position: absolute;transform: rotateZ(4deg);width:100%;height:214px;cursor:pointer" class="image img-thumbnail">
@@ -122,13 +174,12 @@
             <div></div>
             <span><b><%=album.title%></b></span>
             <p class="des-scroll"><%=album.description%></p>
-            <div class="heart">
-              <i class="fa fa-heart mt-2" style="color:rgb(67, 74, 153)"></i>
-              <span class="pl-3"><%=album.updated_at.strftime("%d-%m-%Y at %I:%M%P")%></span>
-            </div>
+            <%= render "vote_album_form", album: album%>
+
           </div>
         </div>
       </div>
+      <% end %>
       <% end %>
     </div>
   </div>

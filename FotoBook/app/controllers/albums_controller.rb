@@ -56,7 +56,16 @@ class AlbumsController < ApplicationController
       redirect_to edit_album_path
     end
   end
-
+  def like
+    @album = Album.find(params[:id])
+    @album.liked_by current_user
+    redirect_to request.referrer
+  end
+  def dislike
+    @album = Album.find(params[:id])
+    @album.disliked_by current_user
+    redirect_to request.referrer
+  end
   private
 
  #Permitted parameters when creating a photo. This is used for security reasons.

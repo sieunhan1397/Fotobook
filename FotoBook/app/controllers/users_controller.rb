@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:index, :show, :edit, :update]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users
@@ -64,7 +64,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to myProfile_path, notice: 'User was successfully update.'}
+        format.html { redirect_to my_profile_path, notice: 'User was successfully update.'}
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }
@@ -83,10 +83,8 @@ class UsersController < ApplicationController
     end
   end
   def discover
-    @photos = Photo.where.not(user_id: current_user.id)
-    @photos = @photos.sort_by {|a| a.updated_at}.reverse
-    @albums =  Album.where.not(user_id: current_user.id)
-    @albums = @albums.sort_by {|a| a.updated_at}.reverse
+      @photos = Photo.all.order(updated_at: :desc)
+      @albums = Album.all.order(updated_at: :desc)
   end
   def sendPic
     @album = Album.find(params[:Album_id])

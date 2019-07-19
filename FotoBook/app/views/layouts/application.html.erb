@@ -25,7 +25,7 @@
         <% else %>
         <img src="/assets/default-user.png" class="rounded-circle" alt="" />
         <% end %>
-        <span><%="#{current_user.lastname} #{current_user.firstname}"%></span>
+        <span><%="#{current_user.lastname} #{current_user.firstname}"%></span></a>
       </li>
       <li class="nav-item mt-2 pl-5">
         <%= link_to "Logout", destroy_user_session_path, class: "text-white",method: :delete %>

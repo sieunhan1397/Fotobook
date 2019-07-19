@@ -7,9 +7,10 @@ Rails.application.routes.draw do
     post 'signin' => 'devise/sessions#create'
     delete 'signout' => 'devise/sessions#destroy'
     get 'my_profile' => 'users#edit'
-    get 'discover' => 'users#discover'
     post 'sendPic' => 'users#sendPic'
+    get 'feed' => 'users#index'
   end
+  get 'discover' => 'users#discover'
   as :pages do
     get 'profile/:id', to: 'pages#edit', as: 'profile'
     # get 'discover' => 'pages#discover'
@@ -23,6 +24,19 @@ Rails.application.routes.draw do
   end
   resources :albums do
     resources :pictures, :only => [:create, :destroy]
+    member do
+      post 'like', to: "albums#like"
+      post 'dislike', to: "albums#dislike"
+    end
+  end
+  # resources :photos do
+  #   resources :votes, only: [:create, :destroy]
+  # end
+  resources :photos do
+    member do
+      post 'like', to: "photos#like"
+      post 'dislike', to: "photos#dislike"
+    end
   end
   resources :relationships, only: [:create, :destroy]
   # resources :pictures
@@ -30,6 +44,6 @@ Rails.application.routes.draw do
   #   get 'newPhoto' => 'photos#new'
   # end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root to: 'users#index'
+  root to: 'users#discover'
   # delete "deleteAlbumPicture/:id", to:"pictures#destroy", as: 'deleteAlbumPicture'
 end

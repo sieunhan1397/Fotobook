@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  before_action :authenticate_user!, only: [:index, :new, :edit]
+  # before_action :authenticate_user!, only: [:index, :new, :edit]
 
   def index
     @photos = current_user.photos.all

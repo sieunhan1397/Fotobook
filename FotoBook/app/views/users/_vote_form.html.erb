@@ -1,0 +1,19 @@
+
+<div id="vote_form">
+  <% if user_signed_in? %>
+    <% if (current_user.voted_down_on? photo) || (!ActsAsVotable::Vote.where(voter_id: current_user,votable_id: photo.id).present?) %>
+      <%= link_to like_photo_path(photo), method: :post, remote: true, class: 'like' do%>
+      <i class="fa fa-heart-o mt-2" style="color:rgb(67, 74, 153)"></i>
+      <% end %>
+    <% else %>
+      <%= link_to dislike_photo_path(photo,0), method: :post, remote: true,class: 'dislike' do%>
+      <i class="fa fa-heart mt-2" style="color:rgb(67, 74, 153)"></i>
+      <% end %>
+    <% end %>
+    <%= photo.get_upvotes.size %>
+    <% else %>
+      <i class="fa fa-heart mt-2" style="color:rgb(67, 74, 153)"></i>
+      <%= photo.get_upvotes.size %>
+  <% end %>
+
+</div>
