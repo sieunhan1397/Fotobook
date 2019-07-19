@@ -1,47 +1,4 @@
-<!-- <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
-<%= link_to "Back", :back %>
--->
 <style>
   .nav-div{
     width: 400px;
@@ -58,71 +15,6 @@
   }
   .nav-item{
    padding-left: 50px;
- }
- .form-signin
- {
-   max-width: 330px;
-   padding: 15px;
-   margin: 0 auto;
- }
- .form-signin .form-signin-heading, .form-signin .checkbox
- {
-   margin-bottom: 10px;
- }
- .form-signin .checkbox
- {
-   font-weight: normal;
- }
- .form-signin .form-control
- {
-   position: relative;
-   font-size: 16px;
-   height: auto;
-   padding: 10px;
-   -webkit-box-sizing: border-box;
-   -moz-box-sizing: border-box;
-   box-sizing: border-box;
- }
- .form-signin .form-control:focus
- {
-   z-index: 2;
- }
- .form-signin input[type="text"]
- {
-   margin-bottom: -1px;
-   border-bottom-left-radius: 0;
-   border-bottom-right-radius: 0;
- }
- .form-signin input[type="password"]
- {
-   margin-bottom: 10px;
-   border-top-left-radius: 0;
-   border-top-right-radius: 0;
- }
- .account-wall
- {
-   margin-top: 20px;
-   padding: 40px 0px 20px 0px;
-   background-color: #f7f7f7;
-   -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-   -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
- }
- .login-title
- {
-   font-size: 30px;
-   font-weight: bold;
-   display: block;
- }
- .profile-img
- {
-   width: 96px;
-   height: 96px;
-   margin: 0 auto 10px;
-   display: block;
-   -moz-border-radius: 50%;
-   -webkit-border-radius: 50%;
-   border-radius: 50%;
  }
 
  .nav-item{
@@ -161,28 +53,40 @@ flex-wrap: wrap;*/
 .nw-ct{
   padding-top: 50px;
 }
-</style>
 
-<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
-  <a class="navbar-brand" href="#">Fotobook</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <div class="navbar-nav mr-auto nav-div">
-      <input type="text" class="form-control" placeholder="Search"/>
-    </div>
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <%= image_tag("#{current_user.avatar}", class: "rounded-circle")%>
-        <%= link_to "#{current_user.lastname} #{current_user.firstname}", myProfile_path,class: "text-white" %>
-      </li>
-      <li class="nav-item mt-1">
-        <%= link_to "Logout", destroy_user_session_path, class: "text-white",method: :delete %>
-      </li>
-    </ul>
-  </div>
-</nav>
+.container {
+  position: relative;
+  width: 50%;
+}
+
+/* Make the image responsive */
+.container img {
+  width: 100%;
+  height: auto;
+}
+
+/* Style the button and place it in the middle of the container/image */
+.container .btn {
+  position: absolute;
+  bottom: 0%;
+  left: 55%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: #555;
+  color: white;
+  font-size: 12px;
+  padding: 6px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.btn-change {
+  opacity: 0;
+  width: 30%;
+  height: 15%;
+}
+</style>
 <body class="nobd">
   <div class="leftpane">
     <div class="nw-ct text-center">
@@ -204,30 +108,42 @@ flex-wrap: wrap;*/
 
         <%= form_with model: @user, controller: 'users',action: 'update', local: true, method: 'put' do |f|%>
         <div class="form-group row">
+          <!-- <div class="col-md-4"></div> -->
+          <div class="col-md-4 container" id="image-preview">
+            <% if @user.avatar?%>
+            <img src="<%=current_user.avatar.url%>" class="profile-avatar w-75 ml-5 rounded-circle" alt="" />
+            <% else %>
+            <img src="/assets/default-user.png" class="profile-avatar w-75 ml-5 rounded-circle" alt="" />
+            <% end %>
+            <button class="btn" disabled>Change</button>
+            <%= f.file_field :avatar, class: 'btn btn-change' %>
+          </div>
+        </div>
+        <div class="form-group row">
           <div class="col-md-4"></div>
           <div class="col-md-5">
-            <h4 class="text-primary">Basic Information</h4>
+            <h4 class="text-primary text-center">Basic Information</h4>
           </div>
         </div>
         <div class="form-group row">
           <label class="col-md-4 col-form-label d-flex justify-content-end"><b>First name</b></label>
           <div class="col-md-5">
             <!-- <input type="text" class="form-control" id="editFirstName" placeholder="First Name"> -->
-            <%= f.text_field :firstname, class: "form-control", placeholder: "First Name", required: true,autofocus: true, maxlength: "25" %>
+            <%= f.text_field :firstname, class: "form-control", required: true,autofocus: true, maxlength: "25" %>
           </div>
         </div>
         <div class="form-group row">
           <label class="col-md-4 col-form-label d-flex justify-content-end"><b>Last name</b></label>
           <div class="col-md-5">
             <!-- <input type="text" class="form-control" id="editLastName" placeholder="Last Name"> -->
-            <%= f.text_field :lastname, class: "form-control", placeholder: "Last Name", required: true, maxlength: "25" %>
+            <%= f.text_field :lastname, class: "form-control", required: true, maxlength: "25" %>
           </div>
         </div>
         <div class="form-group row">
           <label class="col-md-4 col-form-label d-flex justify-content-end"><b>Email</b></label>
           <div class="col-md-5">
             <!-- <input type="Email" class="form-control" id="editEmail" placeholder="Someone@example.com"> -->
-            <%= f.text_field :email, type:"Email",class: "form-control", placeholder: "Someone@example.com", required: true, maxlength: "255" %>
+            <%= f.text_field :email, type:"Email",class: "form-control", required: true, maxlength: "255" %>
           </div>
           <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
           <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
@@ -244,11 +160,11 @@ flex-wrap: wrap;*/
         <div class="form-group row">
           <div class="col-md-4"></div>
           <div class="col-md-5">
-            <h4 class="text-primary">Password</h4>
+            <h4 class="text-primary text-center">Password</h4>
           </div>
         </div>
-         <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-            <%= render "devise/shared/error_messages", resource: resource %>
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
         <div class="form-group row">
           <label class="col-md-4 col-form-label d-flex justify-content-end"><b>Current Password</b></label>
           <div class="col-md-5">
@@ -295,4 +211,37 @@ flex-wrap: wrap;*/
       $('#message').html('Password Not Matching').css('color', 'red');
     });
   </script> -->
+  <script type="text/javascript">
+    function choose() {
+  // Photo preview on album create
+  var preview = $("#image-preview");
+  $("#user_avatar").change(function(event){
+   var input = $(event.currentTarget);
+   var files = input[0].files;
 
+   for (var i = 0; i < files.length; i++){
+
+    var file = files[i]
+
+    var reader = new FileReader();
+
+    reader.onload = function(e){
+
+     image_base64 = e.target.result;
+     var html = ' <div class="img float-left mt-2 mr-1"><div ng-repeat="file in imagefinaldata" class="img_wrp" class=""><img style="height: 180px;width:180px" src="' + image_base64 + '" class="profile-avatar w-75 ml-5 rounded-circle" alt="" />'
+
+     preview.append(html);
+   };
+   reader.readAsDataURL(files[i]);
+ };
+});
+  // Clear images when Browse is clicked again
+  $("#user_avatar").click(function(){
+    $("#image-preview img").remove();
+  });
+}
+$(document).ready(function(){
+  choose();
+}
+);
+</script>

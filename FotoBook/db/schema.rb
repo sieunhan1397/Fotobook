@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_05_084920) do
+ActiveRecord::Schema.define(version: 2019_07_16_093159) do
+
+  create_table "albums", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.integer "sharing_mode"
+    t.index ["user_id"], name: "index_albums_on_user_id"
+  end
 
   create_table "photos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
@@ -22,8 +32,29 @@ ActiveRecord::Schema.define(version: 2019_07_05_084920) do
     t.datetime "image_updated_at"
     t.string "description"
     t.bigint "user_id"
-    t.integer "sharingMode"
+    t.integer "sharing_mode"
     t.index ["user_id"], name: "index_photos_on_user_id"
+  end
+
+  create_table "pictures", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "image_file_name"
+    t.string "image_content_type"
+    t.bigint "image_file_size"
+    t.datetime "image_updated_at"
+    t.bigint "album_id"
+    t.index ["album_id"], name: "index_pictures_on_album_id"
+  end
+
+  create_table "relationships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "follower_id"
+    t.integer "followed_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["followed_id"], name: "index_relationships_on_followed_id"
+    t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
+    t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -36,11 +67,16 @@ ActiveRecord::Schema.define(version: 2019_07_05_084920) do
     t.datetime "updated_at", null: false
     t.string "firstname"
     t.string "lastname"
-    t.string "avatar"
     t.boolean "admin", default: false
+    t.string "avatar_file_name"
+    t.string "avatar_content_type"
+    t.bigint "avatar_file_size"
+    t.datetime "avatar_updated_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "albums", "users"
   add_foreign_key "photos", "users"
+  add_foreign_key "pictures", "albums"
 end

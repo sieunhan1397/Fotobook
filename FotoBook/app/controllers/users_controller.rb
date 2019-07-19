@@ -5,9 +5,25 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @user_followings = current_user.following
+    @photos = []
+    @albums = []
+    sort_photos = Photo.order(updated_at: :desc)
+    sort_albums = Album.order(updated_at: :desc)
+    @photos = sort_users(sort_photos,@user_followings)
+    @albums = sort_users(sort_albums,@user_followings)
   end
-
+  def sort_users a, b
+    temp = []
+    a.each do |i|
+      b.each do |j|
+        if i.user_id == j.id
+          temp.push(i)
+        end
+      end
+    end
+    return temp
+  end
   # GET /users/1
   # GET /users/1.json
   def show
@@ -20,6 +36,11 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    @photos = current_user.photos.all
+    @albums = current_user.albums.all
+    @another_users = User.where.not(id: current_user.id)
+    @user_followings = @user.following
+    @user_followers = @user.followers
   end
 
   # POST /users
@@ -61,8 +82,37 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+  def discover
+    @photos = Photo.where.not(user_id: current_user.id)
+    @photos = @photos.sort_by {|a| a.updated_at}.reverse
+    @albums =  Album.where.not(user_id: current_user.id)
+    @albums = @albums.sort_by {|a| a.updated_at}.reverse
+  end
+  def sendPic
+    @album = Album.find(params[:Album_id])
+    @pics = @album.pictures
+    album_pics = []
+    @pics.each do |pic|
+      album_pics.push(pic.image.url)
+    end
+    render json: {pics: album_pics, title: @album.title, description: @album.description}
+  end
 
-  private
+    # def following
+    #   @title = "Following"
+    #   @user  = User.find(params[:id])
+    #   @users = @user.following
+    #   # render 'show_follow'
+    #   redirect_to my_profile_path
+    # end
+    # def followers
+    #   @title = "Followers"
+    #   @user  = User.find(params[:id])
+    #   @users = @user.followers
+    #   # render 'show_follow'
+    #   redirect_to my_profile_path
+    # end
+    private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = current_user
@@ -70,6 +120,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:firstname, :lastname, :email)
+      params.require(:user).permit(:firstname, :lastname, :email, :avatar)
     end
-end
+  end
