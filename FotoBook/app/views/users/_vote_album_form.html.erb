@@ -10,9 +10,11 @@
       <i class="fa fa-heart mt-2" style="color:rgb(67, 74, 153)"></i>
       <% end %>
     <% end %>
-    <%= album.get_upvotes.size %>
+    <span><small><%= album.get_upvotes.size %> </small></span>
+    <span class="float-right mt-1"><small class="text-secondary "><%= album.created_at.strftime("%I:%M %p %-d/%-m/%Y") %></small></span>
     <% else %>
       <i class="fa fa-heart mt-2" style="color:rgb(67, 74, 153)"></i>
-      <%= album.get_upvotes.size %>
+      <span><small><%= album.get_upvotes.size %> </small></span>
+      <span class="float-right mt-1"><small class="text-secondary "><%= album.created_at.strftime("%I:%M %p %-d/%-m/%Y") %></small></span>
   <% end %>
 </div>

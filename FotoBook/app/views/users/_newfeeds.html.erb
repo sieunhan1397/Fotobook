@@ -1,0 +1,9 @@
+      <% if current_page?(controller: 'users', action: 'discover') || current_page?(root_path) %>
+      <%= link_to "Feed", feed_path,class: 'font-weight-bold' %>
+      <br>
+      <%= link_to "Discover", discover_path,class: 'font-weight-bold text-secondary' %>
+      <% else %>
+      <%= link_to "Feed", feed_path,class: 'font-weight-bold text-secondary' %>
+      <br>
+      <%= link_to "Discover", discover_path,class: 'font-weight-bold' %>
+      <% end %>

@@ -3,17 +3,18 @@
   <% if user_signed_in? %>
     <% if (current_user.voted_down_on? photo) || (!ActsAsVotable::Vote.where(voter_id: current_user,votable_id: photo.id).present?) %>
       <%= link_to like_photo_path(photo), method: :post, remote: true, class: 'like' do%>
-      <i class="fa fa-heart-o mt-2" style="color:rgb(67, 74, 153)"></i>
+      <i class="fa mt-2" style="color:rgb(67, 74, 153)">&#xf087;</i>
       <% end %>
     <% else %>
       <%= link_to dislike_photo_path(photo,0), method: :post, remote: true,class: 'dislike' do%>
-      <i class="fa fa-heart mt-2" style="color:rgb(67, 74, 153)"></i>
+      <i class="fa fa-thumbs-up mt-2" style="color:rgb(67, 74, 153)"></i>
       <% end %>
     <% end %>
-    <%= photo.get_upvotes.size %>
+    <span><small><%= photo.get_upvotes.size %> </small></span>
+    <span class="float-right mt-1"><small class="text-secondary "><%= photo.created_at.strftime("%I:%M %p %-d/%-m/%Y") %></small></span>
     <% else %>
       <i class="fa fa-heart mt-2" style="color:rgb(67, 74, 153)"></i>
-      <%= photo.get_upvotes.size %>
+      <span><small><%= photo.get_upvotes.size %> </small></span>
+      <span class="float-right mt-1"><small class="text-secondary "><%= photo.created_at.strftime("%I:%M %p %-d/%-m/%Y") %></small></span>
   <% end %>
-
 </div>

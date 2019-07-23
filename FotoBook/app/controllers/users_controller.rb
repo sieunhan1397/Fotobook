@@ -83,8 +83,8 @@ class UsersController < ApplicationController
     end
   end
   def discover
-      @photos = Photo.all.order(updated_at: :desc)
-      @albums = Album.all.order(updated_at: :desc)
+    @photos = Photo.all.order(updated_at: :desc)
+    @albums = Album.all.order(updated_at: :desc)
   end
   def sendPic
     @album = Album.find(params[:Album_id])
@@ -96,21 +96,7 @@ class UsersController < ApplicationController
     render json: {pics: album_pics, title: @album.title, description: @album.description}
   end
 
-    # def following
-    #   @title = "Following"
-    #   @user  = User.find(params[:id])
-    #   @users = @user.following
-    #   # render 'show_follow'
-    #   redirect_to my_profile_path
-    # end
-    # def followers
-    #   @title = "Followers"
-    #   @user  = User.find(params[:id])
-    #   @users = @user.followers
-    #   # render 'show_follow'
-    #   redirect_to my_profile_path
-    # end
-    private
+  private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = current_user

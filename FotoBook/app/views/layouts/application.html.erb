@@ -8,7 +8,7 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
-  <a class="navbar-brand" href="#">Fotobook</a>
+  <a class="navbar-brand font-weight-bold" href="<%=root_path%>">Fotobook</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -19,6 +19,9 @@
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
         <% if !current_user.nil? %>
+        <% if current_user.admin == true%>
+          <%= link_to "Dashboard", rails_admin_path,class: "text-dark mr-3" %>
+        <% end %>
         <a href="<%=my_profile_path%>" class="text-white">
         <% if current_user.avatar?%>
         <img src="<%=current_user.avatar.url%>" class="rounded-circle" alt="" />

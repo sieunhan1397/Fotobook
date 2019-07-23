@@ -1,4 +1,5 @@
 class AlbumsController < ApplicationController
+  before_action :set_album, only: [:edit, :update, :destroy, :like, :dislike]
   def index
     @albums = Album.order('created_at')
   end
@@ -8,12 +9,9 @@ class AlbumsController < ApplicationController
   end
 
   def edit
-    @album = Album.find(params[:id])
     @pictures = @album.pictures.all
   end
   def create
-    puts "---------------------------"
-    puts params
     @album = Album.new(album_params)
     @album.user_id = current_user.id if current_user
     respond_to do |format|
@@ -33,7 +31,6 @@ class AlbumsController < ApplicationController
     end
   end
   def update
-    @album = Album.find(params[:id])
     @pictures = @album.pictures.all
     if @album.update_attributes(album_params)
       if params[:images]
@@ -47,7 +44,6 @@ class AlbumsController < ApplicationController
     end
   end
   def destroy
-    @album = Album.find(params[:id])
     if @album.destroy
       flash[:notice] = "Successfully deleted album!"
       redirect_to my_profile_path
@@ -57,17 +53,17 @@ class AlbumsController < ApplicationController
     end
   end
   def like
-    @album = Album.find(params[:id])
     @album.liked_by current_user
     redirect_to request.referrer
   end
   def dislike
-    @album = Album.find(params[:id])
     @album.disliked_by current_user
     redirect_to request.referrer
   end
   private
-
+def set_album
+  @album = Album.find(params[:id])
+end
  #Permitted parameters when creating a photo. This is used for security reasons.
  def album_params
   params.require(:album).permit(:title, :description, :sharing_mode)
