@@ -64,7 +64,7 @@ flex-wrap: wrap;*/
 .pull-down {
   position: absolute;
   bottom: 3px;
-  right: 0px;
+  right: -8px;
   height: 25px;
   width: 50px;
   transform: translate(-50%, -50%);
@@ -140,7 +140,7 @@ flex-wrap: wrap;*/
         </div>
         <div class="col-md-9 pt-3 text-center text-md-left">
           <%= link_to "Edit profile", edit_user_registration_path,class: "btn btn-primary" %>
-          <h2 class="text-dark"><%= "#{current_user.lastname} #{current_user.firstname}"%></h2>
+          <h2 class="text-dark font-weight-bold"><%= "#{current_user.lastname} #{current_user.firstname}"%></h2>
           <!-- Nav tabs -->
           <ul class="nav nav-tabs" role="tablist">
             <li class="nav-item">
@@ -219,7 +219,7 @@ flex-wrap: wrap;*/
                   <% else %>
                   <img src="/assets/default-user.png" class="profile-avatar w-50 mt-3 rounded-circle"/>
                   <% end %>
-                  <p class="text-dark text-center"><%= "#{u.lastname} #{u.firstname}"%></p>
+                  <p class="font-weight-bold"><a href="<%= profile_path(u.id)%>" class="text-dark text-center"><%="#{u.lastname} #{u.firstname}"%></a><p>
                 </div>
                 <div class="d-flex text-center">
                   <div class="w-50">
@@ -255,7 +255,7 @@ flex-wrap: wrap;*/
                   <% else %>
                   <img src="/assets/default-user.png" class="profile-avatar w-50 mt-3 rounded-circle"/>
                   <% end %>
-                  <p class="text-dark text-center"><%= "#{u.lastname} #{u.firstname}"%></p>
+                  <p class="font-weight-bold"><a href="<%= profile_path(u.id)%>" class="text-dark text-center"><%="#{u.lastname} #{u.firstname}"%></a><p>
                 </div>
                 <div class="d-flex text-center">
                   <div class="w-50">

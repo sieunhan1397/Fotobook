@@ -168,22 +168,18 @@ flex-wrap: wrap;*/
         <div class="form-group row">
           <label class="col-md-4 col-form-label d-flex justify-content-end"><b>Current Password</b></label>
           <div class="col-md-5">
-            <!-- <input type="Email" class="form-control" id="editEmail" placeholder="Someone@example.com"> -->
-
             <%= f.password_field :current_password, class: "form-control", placeholder: "Enter current password"%>
           </div>
         </div>
         <div class="form-group row">
           <label class="col-md-4 col-form-label d-flex justify-content-end"><b>New Password</b></label>
           <div class="col-md-5">
-            <!-- <input type="Email" class="form-control" id="editEmail" placeholder="Someone@example.com"> -->
             <%= f.password_field :password, class: "form-control", placeholder: "Enter new password" %>
           </div>
         </div>
         <div class="form-group row">
           <label class="col-md-4 col-form-label d-flex justify-content-end"><b>Password Confirm</b></label>
           <div class="col-md-5">
-            <!-- <input type="Email" class="form-control" id="editEmail" placeholder="Someone@example.com"> -->
             <%= f.password_field :password_confirmation, class: "form-control", placeholder: "Enter new password confirmation"%>
             <span id='message'></span>
           </div>
@@ -191,26 +187,15 @@ flex-wrap: wrap;*/
         <div class="form-group row">
           <div class="col-md-4"></div>
           <div class="col-md-5">
-            <!-- <button type="submit" class="btn btn-success">Save</button> -->
             <%= f.submit "Save", class: "btn btn-success" %>
             <% end %>
           </div>
         </div>
-        <!-- </form> -->
-
       </div>
     </div>
     <div class="rightpane">
     </div>
   </body>
-<!--   <script type="text/javascript">
-    $('#password, #password_confirm').on('keyup', function () {
-      if ($('#password').val() == $('#password_confirm').val()) {
-        $('#message').html('Password Matching').css('color', 'green');
-      } else
-      $('#message').html('Password Not Matching').css('color', 'red');
-    });
-  </script> -->
   <script type="text/javascript">
     function choose() {
   // Photo preview on album create
@@ -218,27 +203,20 @@ flex-wrap: wrap;*/
   $("#user_avatar").change(function(event){
    var input = $(event.currentTarget);
    var files = input[0].files;
-
    for (var i = 0; i < files.length; i++){
-
     var file = files[i]
-
     var reader = new FileReader();
-
     reader.onload = function(e){
-
-     image_base64 = e.target.result;
-     var html = ' <div class="img float-left mt-2 mr-1"><div ng-repeat="file in imagefinaldata" class="img_wrp" class=""><img style="height: 180px;width:180px" src="' + image_base64 + '" class="profile-avatar w-75 ml-5 rounded-circle" alt="" />'
-
-     preview.append(html);
+      $("#image-preview img").remove();
+      image_base64 = e.target.result;
+      if(image_base64){
+       var html = ' <div class="img float-left mt-2 mr-1"><div ng-repeat="file in imagefinaldata" class="img_wrp"><img src="' + image_base64 + '" class="profile-avatar w-75 ml-5 rounded-circle" alt="" />'
+       preview.append(html);
+     }
    };
    reader.readAsDataURL(files[i]);
  };
 });
-  // Clear images when Browse is clicked again
-  $("#user_avatar").click(function(){
-    $("#image-preview img").remove();
-  });
 }
 $(document).ready(function(){
   choose();

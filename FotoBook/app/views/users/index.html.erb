@@ -65,20 +65,17 @@
       <div class="m-auto p-3">
         <ul class="nav nav-tabs mx-auto" style="width: max-content;">
           <li class="nav-item">
-            <a class="nav-link active broder" data-toggle="tab" href="#photo">PHOTO</a>
+            <a class="nav-link <%= 'active' if params[:active] == 'photo_page' or params[:active].nil?%>" data-toggle="tab" href="#photo">PHOTO</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#album">ALBUM</a>
+            <a class="nav-link <%= 'active' if params[:active] == 'album_page'%>" data-toggle="tab" href="#album">ALBUM</a>
           </li>
         </ul>
         <div class="tab-content">
-          <div id="photo" class="container-fluid tab-pane active">
+          <div id="photo" class="container-fluid tab-pane <%= 'active' if params[:active] == 'photo_page' or params[:active].nil?%>">
             <div class="row">
              <% if @photos %>
              <% @photos.each do |photo| %>
-             <% if photo.isPrivate? %>
-             <% next %>
-             <% end %>
              <div class="d-inline-flex w-50 p-2" >
               <div class="photo-area">
                <img title="<%=photo.title%>" desc="<%=photo.description%>" src="<%=photo.image.url%>"style="width:100%;height:100%;cursor:pointer" class="pop">
@@ -104,14 +101,14 @@
             <% end %>
             <% end %>
           </div>
+        <div class="d-flex justify-content-center pt-3">
+          <%= will_paginate @photos, :remote => true, param_name: 'photo_page',renderer: WillPaginate::ActionView::BootstrapLinkRenderer, params: { active: 'photo_page'} %>
         </div>
-        <div id="album" class="container-fluid tab-pane fade">
+        </div>
+        <div id="album" class="container-fluid tab-pane <%= 'active' if params[:active] == 'album_page'%>">
           <div class="row">
            <% if @albums %>
            <% @albums.each do |album| %>
-           <% if album.isPrivate? %>
-           <% next %>
-           <% end %>
            <div class="d-inline-flex w-50 p-2" >
             <div class="photo-area" style="position: relative;">
               <img src="<%=album.pictures.first.image%>"style="position: absolute;transform: rotateZ(4deg);width:100%;height:214px;cursor:pointer" class="image img-thumbnail">
@@ -137,6 +134,9 @@
           </div>
           <% end %>
           <% end %>
+        </div>
+          <div class="d-flex justify-content-center pt-3">
+          <%= will_paginate @albums, :remote => true, param_name: 'album_page',renderer: WillPaginate::ActionView::BootstrapLinkRenderer, params: { active: 'album_page'} %>
         </div>
       </div>
     </div>

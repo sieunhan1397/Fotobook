@@ -8,10 +8,12 @@ class UsersController < ApplicationController
     @user_followings = current_user.following
     @photos = []
     @albums = []
-    sort_photos = Photo.order(updated_at: :desc)
-    sort_albums = Album.order(updated_at: :desc)
+    sort_photos = Photo.where(sharing_mode: :isPublic).order(updated_at: :desc)
+    sort_albums = Album.where(sharing_mode: :isPublic).order(updated_at: :desc)
     @photos = sort_users(sort_photos,@user_followings)
     @albums = sort_users(sort_albums,@user_followings)
+    @photos = @photos.paginate page: params[:photo_page], per_page: 4
+    @albums = @albums.paginate page: params[:album_page], per_page: 4
   end
   def sort_users a, b
     temp = []
@@ -83,8 +85,8 @@ class UsersController < ApplicationController
     end
   end
   def discover
-    @photos = Photo.all.order(updated_at: :desc)
-    @albums = Album.all.order(updated_at: :desc)
+    @photos = Photo.where(sharing_mode: :isPublic).order(updated_at: :desc).paginate page: params[:photo_page], per_page: 4
+    @albums = Album.where(sharing_mode: :isPublic).order(updated_at: :desc).paginate page: params[:album_page], per_page: 4
   end
   def sendPic
     @album = Album.find(params[:Album_id])
