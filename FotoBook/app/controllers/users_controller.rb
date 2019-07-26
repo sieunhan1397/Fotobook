@@ -85,8 +85,13 @@ class UsersController < ApplicationController
     end
   end
   def discover
+    if params[:search]
+      @photos = Photo.search(params[:search]).where(sharing_mode: :isPublic).order(updated_at: :desc).paginate page: params[:photo_page], per_page: 4
+      @albums = Album.search(params[:search]).where(sharing_mode: :isPublic).order(updated_at: :desc).paginate page: params[:album_page], per_page: 4
+    else
     @photos = Photo.where(sharing_mode: :isPublic).order(updated_at: :desc).paginate page: params[:photo_page], per_page: 4
     @albums = Album.where(sharing_mode: :isPublic).order(updated_at: :desc).paginate page: params[:album_page], per_page: 4
+    end
   end
   def sendPic
     @album = Album.find(params[:Album_id])
