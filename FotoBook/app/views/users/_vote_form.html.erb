@@ -11,10 +11,10 @@
       <% end %>
     <% end %>
     <span><small><%= photo.get_upvotes.size %> </small></span>
-    <span class="float-right mt-1"><small class="text-secondary "><%= photo.updated_at.strftime("%I:%M %p %-d/%-m/%Y") %></small></span>
+    <span class="float-right mt-1"><small class="text-secondary "><%= photo.created_at.strftime("%I:%M %p %-d/%-m/%Y") %></small></span>
     <% else %>
       <i class="fa fa-heart mt-2" style="color:rgb(67, 74, 153)"></i>
       <span><small><%= photo.get_upvotes.size %> </small></span>
-      <span class="float-right mt-1"><small class="text-secondary "><%= photo.updated_at.strftime("%I:%M %p %-d/%-m/%Y") %></small></span>
+      <span class="float-right mt-1"><small class="text-secondary "><%= photo.created_at.strftime("%I:%M %p %-d/%-m/%Y") %></small></span>
   <% end %>
 </div>

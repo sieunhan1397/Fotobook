@@ -117,12 +117,6 @@ flex-wrap: wrap;*/
   color: white;
   text-decoration: none;
 }
-p.album-size{
-  margin-left: 75px;
-  margin-top: 50px;
-  position: absolute;
-  background: rgba(0, 0, 0, 0.2);
-}
 </style>
 <body class="nobd">
   <div class="leftpane">
@@ -201,7 +195,6 @@ p.album-size{
               <div class="images mt-2" style="position: relative;">
                 <%= image_tag(album.pictures.first.image.url, class: 'image img-thumbnail',style: 'position: absolute;transform: rotateZ(4deg);') %>
                 <%= image_tag(album.pictures.first.image.url, class: 'image img-thumbnail',style: 'position: absolute;transform: rotateZ(8deg);') %>
-                <p class="rounded-circle p-3 h-50 text-center album-size text-white"><b><%= album.pictures.length %><br><span>PHOTOS</span></b></p>
                 <%= image_tag(album.pictures.first.image.url, class: 'image img-thumbnail') %>
                 <% if album.isPrivate? %>
                 <i class="fa fa-lock pull-up"></i>
