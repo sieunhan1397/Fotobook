@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     post 'signin' => 'devise/sessions#create'
     delete 'signout' => 'devise/sessions#destroy'
     get 'my_profile' => 'users#edit'
-    post 'sendPic' => 'users#sendPic'
+    post 'add_pic' => 'users#add_pic'
     get 'feed' => 'users#index'
   end
   get 'discover' => 'users#discover'

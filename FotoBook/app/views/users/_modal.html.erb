@@ -70,7 +70,7 @@
     $('.show-modal-album').on('click', function () {
       var name = $(this).attr('name');
       Rails.ajax({
-        url: "/sendPic",
+        url: "/add_pic",
         contentType: "application/json",
         type: "post",
         dataType: "json",
